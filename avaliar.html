@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="imagens/bola.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <title>FutScore</title>
+</head>
+
+<body>
+<div class="app">
+    <header>
+        <img src="imagens/bola.png" alt="Logo do FutScore">
+        <h1>FutScore</h1>
+        <h2>O futebol amador conectado.</h2>
+    </header>
+    <main class="avaliacao">
+        <h2>Avaliar o App FutScore</h2>
+        <p class="texto-avaliacao">
+            Como você avalia sua experiência com o FutScore?
+        </p>
+        <!-- ESTRELAS -->
+        <div class="estrelas">
+            <span class="estrela" data-valor="1">&#9733;</span>
+            <span class="estrela" data-valor="2">&#9733;</span>
+            <span class="estrela" data-valor="3">&#9733;</span>
+            <span class="estrela" data-valor="4">&#9733;</span>
+            <span class="estrela" data-valor="5">&#9733;</span>
+        </div>
+
+        <p id="nota">Selecione uma nota</p>
+        <!-- COMENTÁRIO -->
+        <textarea
+            id="comentario"
+            placeholder="Digite aqui sua opinião ou sugestão..."
+            maxlength="300">
+        </textarea>
+        <button id="btn-avaliar">
+            Enviar avaliação
+        </button>
+    </main>
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <img
+                src="imagens/voltar.png"
+                alt="Voltar"
+                class="nav-icon">
+            <span>Voltar</span>
+        </a>
+    </nav>
+
+
+    <footer>
+        <p>
+            &copy;
+            <span id="ano"></span>
+            - Desenvolvido por Team XP
+        </p>
+    </footer>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

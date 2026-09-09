@@ -8,33 +8,33 @@
     <title>FutScore</title>
 </head>
 <body>
-
 <div class="app">
-
     <header> <!--cabeçalho-->
-        <img src="imagens/bola.png" alt="logo">
-        <h1>"FutScore"</h1>
+        <img src="imagens/bola.png" alt="logo do futscore">
+        <h1>FutScore</h1>
         <h2>O futebol amador conectado.</h2>
     </header>
 
     <main> <!--conteúdo da tela-->        
-        <button><a href="det-camp.html"><img src="imagens/cf2027.png" alt="copa do feijão"></a></button>
+        <ul>
+            <li><a href="det-camp.html"><img style="width: 100px;" src="imagens/cf2027.png" alt="copa do feijão"><h3>Copa do Feijão 2027</h3></a></li>
+        </ul>
     </main>
 
     <nav class="bottom-nav"> <!--navegação-->
-
+        <a href="avaliar.html" class="nav-item">
+            <img src="imagens/avaliar.png" alt="Avaliar App" class="nav-icon">
+            <span style="font-size: 14px;">Avaliar App</span>
+        </a>
     </nav>
 
-    
+    <footer>
+        <p>&copy; <span id="ano"></span> - Desenvolvido por Team XP</p>
+    </footer> 
 
 </div>
 
-
-<footer>
-    <p>&copy; 2026 - Desenvolvido por Team XP</p>
-</footer>
-
-
+<script src="js/script.js"></script>
 
 </body>
 </html>

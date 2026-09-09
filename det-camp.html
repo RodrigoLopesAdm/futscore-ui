@@ -9,41 +9,34 @@
 </head>
 <body>
 
-<div class="app">
+    <div class="app">
+        <header> <!--cabeçalho-->
+            <img src="imagens/cf2027.png" alt="copa do feijão">
+            <h1>10ª Copa do Feijão 2027</h1>
+        </header>
+        <main> <!--conteúdo da tela-->
+            <ul>
+                <li><a href="tab-jogos.html"><img style="width: 50px;" src="imagens/tab-jogos.png" alt="tabela de jogos">Tabela de Jogos</a></li>
+                <li><a href="classificacao.html"><img style="width: 50px;" src="imagens/classificacao.png" alt="classificação">Classificação</a></li>
+                <li><a href="estatisticas.html"><img style="width: 50px;" src="imagens/estatisticas.png" alt="estatísticas">Estatísticas</a></li>
+             </ul> 
+        </main>
 
-    <header> <!--cabeçalho-->
-        <img src="imagens/cf2027.png" alt="copa do feijão">
-        <h1>10ª Copa do Feijão 2027</h1>
-    </header>
-
-    <main> <!--conteúdo da tela-->
-        
-         <li>
-            <a href="tab-jogos.html">
-                <ul>Tabela de Jogos</ul>
+        <nav class="bottom-nav">
+            <!-- Item 1: Página Inicial -->
+            <a href="index.html" class="nav-item">
+                <img src="imagens/voltar.png" alt="Início" class="nav-icon">
+                <span>Voltar</span>
             </a>
-            <a href="classificacao.html">
-                <ul>Classificação</ul>
-            </a>
-            <a href="estatisticas.html">
-                <ul>Estatísticass</ul>
-            </a>
-        </li>
-    </main>
+        </nav>
 
-    <nav class="bottom-nav"> <!--navegação-->
-       <button><a href="index.html">Voltar</a></button>
-    </nav>
+        <footer>
+            <p>&copy; <span id="ano"></span> - Desenvolvido por Team XP</p>
+        </footer> 
 
-    
+    </div>
 
-</div>
-
-<footer>
-    <p>&copy; 2026 - Desenvolvido por Team XP</p>
-</footer>
-
-
+    <script src="js/script.js"></script>
 
 </body>
 </html>

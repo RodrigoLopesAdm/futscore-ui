@@ -1,55 +1,486 @@
-*{
-    margin: auto;
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
-
+}
+html,
 body {
-    font-family: 'Oxanium', sans-serif; color: white;
+    height: 100%;
+}
+body {
+    font-family: 'Oxanium', sans-serif;
+    color: white;
     background-color: rgb(237, 237, 243);
+    overflow: hidden;
 }
-
 .app {
-    min-height: 100vh;
-    width: 30%;
+    height: 100vh;
+    width: 100%;
+    max-width: 380px;
     background-color: blue;
-    border-color: #000;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-style: solid;
-    border-width: 5px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #000;
+    border-radius: 30px;
+    margin: auto;
+    overflow: hidden;
+}
+/*CABEÇALHO */
+header {
+    width: 100%;
+    text-align: center;
+    /* deixa o conteúdo próximo do topo */
+    padding-top: 0;
+    margin-top: 0;
+    flex-shrink: 0;
+}
+/* Logo da Copa do Feijão */
+header img {
+    display: block;
+    width: 170px;
+    height: auto;
+    /* centraliza a imagem e reduz espaços */
+    margin: 0 auto;
+    padding: 0;
+}
+/* Nome: 10ª Copa do Feijão 2027 */
+header h1 {
+    font-size: 23px;
+    /* aproxima o nome da logo */
+    margin-top: -8px;
+    margin-bottom: 2px;
+}
+/* Tabela de Jogos */
+header h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+/*CONTEÚDO PRINCIPAL*/
+main {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 15px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
-footer{
+
+/*BOTÕES*/
+button {
+    background-color: blue;
+    border: 0;
+}
+/*LINKS*/
+a {
+    font-family: 'Oxanium', sans-serif;
+    color: white;
+    font-size: large;
+}
+/*NAVEGAÇÃO INFERIOR*/
+.bottom-nav {
+    background-color: #0e22ba;
+    width: 100%;
+    padding: 10px 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 10;
+}
+/* Cada botão da navegação */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #a0a5c1;
+    width: 25%;
+    transition: color 0.2s ease;
+}
+.nav-item:hover {
+    color: #ffffff;
+}
+/* Ícones da navegação */
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin-bottom: 4px;
+    object-fit: contain;
+}
+/* Texto abaixo dos ícones */
+.nav-item span {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+/*LISTAS*/
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin: 25px 10px;
+}
+li a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+li a img {
+    margin-right: 10px;
+}
+/*RODAPÉ*/
+footer {
     background-color: #000;
     font-family: 'Oxanium', sans-serif;
     font-style: oblique;
+    font-size: 14px;
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 12px;
+    flex-shrink: 0;
+}
+/*TELA DE AVALIAÇÃO*/
+.avaliacao {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 20px;
+}
+/* Texto acima das estrelas */
+.texto-avaliacao {
+    font-size: 16px;
+}
+/* Container das estrelas */
+.estrelas {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+/* Estrelas */
+.estrela {
+    font-size: 38px;
+    color: #a0a0a0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+/* Estrela selecionada */
+.estrela.ativa {
+    color: gold;
+}
+/* Aumenta levemente ao passar o mouse */
+.estrela:hover {
+    transform: scale(1.15);
+}
+/* Texto da nota */
+#nota {
+    font-size: 15px;
+}
+/* Caixa para comentário */
+#comentario {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    resize: none;
+    font-family: 'Oxanium', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+/* Botão de enviar */
+#btn-avaliar {
+    background-color: silver;
+    color: #3a15de;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-family: 'Oxanium', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#btn-avaliar:hover {
+    background-color: #1285e3;
+}
+/*TABELA DE JOGOS*/
+.jogos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 12px;
+}
+/* Card principal da rodada */
+.painel-rodada {
+    width: 100%;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    padding: 12px;
+}
+/* Navegação entre rodadas */
+.navegacao-rodada {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+/* Nome da rodada */
+.navegacao-rodada h3 {
+    color: blue;
     font-size: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 30%;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+}
+/* Botões de navegação */
+.btn-rodada {
+    background-color: blue;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+}
+/* Efeito ao passar o mouse */
+.btn-rodada:hover {
+    background-color: #0e22ba;
+}
+/* Cada partida */
+.jogo {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 5px;
+    border-top: 1px solid #dddddd;
+}
+/* Remove a linha do primeiro jogo */
+.jogo:first-child {
+    border-top: none;
+}
+/* Nome dos times */
+.time {
+    font-size: 14px;
+    font-weight: 600;
     text-align: center;
 }
-
-img{
-    width: 200px;
-    padding-top: 20px;
-}
-
-
-button{
+/* Placar */
+.placar {
     background-color: blue;
-    border: 0px;
+    color: white;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 7px;
+    white-space: nowrap;
 }
-
-a{
-    font-family: 'Oxanium', sans-serif; color: white;
-    font-size: large;
+/*CLASSIFICAÇÃO DOS GRUPOS*/
+.classificacao-grupos {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 10px;
 }
-
-
-.bottom-nav{
-    padding-top: 430px;
+/* Card da classificação */
+.painel-classificacao {
+    width: 100%;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    overflow: hidden;
+}
+/*NAVEGAÇÃO DOS GRUPOS*/
+.navegacao-grupo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 12px;
+}
+/* Nome Grupo A, B ou C */
+.navegacao-grupo h3 {
+    color: blue;
+    font-size: 20px;
+}
+/* Setas */
+.btn-grupo {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+/* Botão desativado */
+.btn-grupo:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+/*TABELA*/
+.tabela-classificacao {
+    width: 100%;
+}
+/* Linhas */
+.linha {
+    display: grid;
+    grid-template-columns:
+        24px
+        minmax(95px, 1fr)
+        repeat(6, 27px);
+    align-items: center;
+    min-height: 40px;
+    padding: 4px;
+    border-bottom: 1px solid #dddddd;
+    font-size: 12px;
+    text-align: center;
+}
+/* Cabeçalho */
+.linha.cabecalho {
+    background-color: #0e22ba;
+    color: white;
+    font-weight: bold;
+}
+/* Nome da equipe */
+.equipe {
+    text-align: left;
+    font-weight: 600;
+    padding-left: 3px;
+}
+/* Classificados */
+.linha.classificado {
+    border-left: 5px solid #18a818;
+}
+/* Legenda */
+.legenda-classificacao {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px;
+    font-size: 12px;
+}
+/* Quadradinho verde da legenda */
+.legenda-classificacao span {
+    width: 12px;
+    height: 12px;
+    background-color: #18a818;
+    display: inline-block;
+}
+/*ESTATÍSTICAS*/
+.estatisticas-jogos {
+    width: 100%;
+    display: block;
+    padding: 0 10px 20px 10px;
+}
+/* Card principal */
+.painel-estatisticas {
+    width: 100%;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    overflow: hidden;
+}
+/*NAVEGAÇÃO*/
+.navegacao-estatisticas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+/* Título */
+.navegacao-estatisticas h3 {
+    color: blue;
+    font-size: 20px;
+}
+/* Botões */
+.btn-estatistica {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+/* Botão desativado */
+.btn-estatistica:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+/*CABEÇALHO DA TABELA*/
+.cabecalho-estatistica {
+    display: grid;
+    grid-template-columns:
+        30px
+        minmax(100px, 1fr)
+        minmax(80px, 1fr)
+        45px;
+    align-items: center;
+    background-color: #0e22ba;
+    color: white;
+    padding: 9px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+/*LINHAS*/
+.linha-estatistica {
+    display: grid;
+    grid-template-columns:
+        30px
+        minmax(100px, 1fr)
+        minmax(80px, 1fr)
+        45px;
+    align-items: center;
+    min-height: 43px;
+    padding: 6px 5px;
+    border-bottom: 1px solid #dddddd;
+    font-size: 12px;
+}
+/* Nome do jogador */
+.nome-jogador {
+    text-align: left;
+    font-weight: bold;
+}
+/* Nome do time */
+.time-jogador {
+    text-align: center;
+    font-size: 11px;
+}
+/* Número de gols ou assistências */
+.valor-estatistica {
+    font-size: 15px;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+/* Destaque do líder */
+.linha-estatistica:first-child {
+    border-left: 5px solid gold;
+}
+/* Medalha do líder */
+.linha-estatistica:first-child .posicao-estatistica {
+    font-size: 17px;
 }

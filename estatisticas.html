@@ -17,24 +17,70 @@
         <h2>Estatísticas dos Jogos</h2>
     </header>
 
-    <main> <!--conteúdo da tela-->
-        
-         
+    <main class="estatisticas-jogos">
+        <section class="painel-estatisticas">
+            <div class="navegacao-estatisticas">
+
+            <button id="estatistica-anterior" class="btn-estatistica" type="button">
+                &#10094;
+            </button>
+
+            <h3 id="titulo-estatistica">Artilharia</h3>
+
+            <button id="proxima-estatistica" class="btn-estatistica" type="button">
+                &#10095;
+            </button>
+
+            </div>
+
+            <div class="cabecalho-estatistica">
+                <span>#</span>
+                <span>Jogador</span>
+                <span>Time</span>
+                <span id="titulo-valor">Gols</span>
+            </div>
+
+            <div id="lista-estatisticas">
+                <!-- Dados inseridos pelo JavaScript -->
+            </div>
+
+        </section>
+
     </main>
 
-    <nav class="bottom-nav"> <!--navegação-->
-       <button><a href="index.html">Voltar</a></button>
+    <nav class="bottom-nav">
+        <!-- Item 1: Página Inicial -->
+        <a href="det-camp.html" class="nav-item">
+            <img src="imagens/home.png" alt="Início" class="nav-icon">
+            <span>Página Inicial</span>
+        </a>
+        <!-- Item 2: Jogos -->
+        <a href="tab-jogos.html" class="nav-item">
+            <img src="imagens/tab-jogos.png" alt="Jogos" class="nav-icon">
+            <span>Jogos</span>
+        </a>
+
+        <!-- Item 3: Classificação -->
+        <a href="classificacao.html" class="nav-item">
+            <img src="imagens/classificacao.png" alt="Classificação" class="nav-icon">
+            <span>Classificação</span>
+        </a>
+
+        <!-- Item 4: Estatísticas -->
+        <a href="estatisticas.html" class="nav-item">
+            <img src="imagens/estatisticas.png" alt="Estatísticas" class="nav-icon">
+            <span>Estatísticas</span>
+        </a>
     </nav>
 
-    
+
+    <footer>
+        <p>&copy; <span id="ano"></span> - Desenvolvido por Team XP</p>
+    </footer> 
 
 </div>
 
-<footer>
-    <p>&copy; 2026 - Desenvolvido por Team XP</p>
-</footer>
-
-
+<script src="js/script.js"></script>
 
 </body>
 </html>
