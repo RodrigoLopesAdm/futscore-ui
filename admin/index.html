@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FutScore | Painel Administrativo</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <h2>⚽ FutScore</h2>
+                <p>Painel Administrativo</p>
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item ativo"
+                   data-pagina="inicio">
+                    🏠 Início
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="campeonatos">
+                    🏆 Campeonatos
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="equipes">
+                    🛡️ Equipes
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="atletas">
+                    👕 Atletas
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="partidas">
+                    📅 Partidas
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="resultados">
+                    ⚽ Resultados
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="eventos">
+                    📊 Eventos
+                </a>
+
+            </nav>
+
+            <div class="sidebar-rodape">
+                <p>FutScore © 2026</p>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="conteudo">
+
+            <header class="topo">
+
+                <div>
+                    <h1>Painel Administrativo</h1>
+                    <p>Gerenciamento de campeonatos</p>
+                </div>
+
+                <div class="usuario">
+                    <span>👤 Administrador (teste)</span>
+                </div>
+
+            </header>
+
+            <!-- PÁGINA INICIAL -->
+            <section id="pagina-inicio"
+                     class="pagina ativa">
+
+                <h2>Visão geral</h2>
+
+                <p class="descricao">
+                    Bem-vindo ao painel de gerenciamento
+                    do FutScore.
+                </p>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <div class="card-icone">🏆</div>
+                        <h3>Campeonatos</h3>
+                        <p>Gerenciar competições</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icone">🛡️</div>
+                        <h3>Equipes</h3>
+                        <p>Gerenciar equipes</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icone">👕</div>
+                        <h3>Atletas</h3>
+                        <p>Gerenciar jogadores</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icone">📅</div>
+                        <h3>Partidas</h3>
+                        <p>Gerenciar jogos</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icone">⚽</div>
+                        <h3>Resultados</h3>
+                        <p>Registrar placares</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icone">📊</div>
+                        <h3>Eventos</h3>
+                        <p>Gols, assistências e cartões</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            
+        <!-- CAMPEONATOS -->
+        <section id="pagina-campeonatos" class="pagina">
+
+            <h2>Gerenciamento de Campeonatos</h2>
+
+            <p class="descricao">
+                Consulte os campeonatos cadastrados no FutScore.
+            </p>
+
+            
+            <!-- FORMULÁRIO DE CADASTRO DE CAMPEONATO -->
+            <div class="card" style="margin-bottom: 25px; text-align: left;">
+
+                <h3>Cadastrar novo campeonato</h3>
+
+                <form id="form-campeonato">
+
+                    <div class="campo-formulario">
+                        <label for="nome-campeonato">
+                            Nome do campeonato
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome-campeonato"
+                            name="nome"
+                            placeholder="Ex.: 11ª Copa do Feijão"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="ano-campeonato">
+                            Ano
+                        </label>
+
+                        <input
+                            type="number"
+                            id="ano-campeonato"
+                            name="ano"
+                            min="2000"
+                            max="2100"
+                            placeholder="Ex.: 2028"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="inicio-campeonato">
+                            Data de início
+                        </label>
+
+                        <input
+                            type="date"
+                            id="inicio-campeonato"
+                            name="dataInicio"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="fim-campeonato">
+                            Data de término
+                        </label>
+
+                        <input
+                            type="date"
+                            id="fim-campeonato"
+                            name="dataFim"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="regulamento-campeonato">
+                            Regulamento
+                        </label>
+
+                        <textarea
+                            id="regulamento-campeonato"
+                            name="regulamento"
+                            rows="4"
+                            placeholder="Descreva o regulamento do campeonato"
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-salvar">
+                        Salvar campeonato
+                    </button>
+
+                    <p id="mensagem-campeonato"
+                    role="status"
+                    aria-live="polite"></p>
+
+                </form>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Campeonatos cadastrados</h3>
+
+                <div style="overflow-x: auto; margin-top: 20px;">
+
+                    <table id="tabela-campeonatos"
+                        style="width: 100%; border-collapse: collapse;">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Ano</th>
+                                <th>Data de início</th>
+                                <th>Data de término</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="lista-campeonatos-admin">
+
+                            <tr>
+                                <td colspan="6">
+                                    Aguardando carregamento...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+            <!-- EQUIPES -->
+            <section id="pagina-equipes"
+                     class="pagina">
+
+                <h2>Equipes</h2>
+
+                <p>
+                    Área para cadastrar e gerenciar equipes.
+                </p>
+
+            </section>
+
+            <!-- ATLETAS -->
+            <section id="pagina-atletas"
+                     class="pagina">
+
+                <h2>Atletas</h2>
+
+                <p>
+                    Área para cadastrar e gerenciar atletas.
+                </p>
+
+            </section>
+
+            <!-- PARTIDAS -->
+            <section id="pagina-partidas"
+                     class="pagina">
+
+                <h2>Partidas</h2>
+
+                <p>
+                    Área para cadastrar e gerenciar partidas.
+                </p>
+
+            </section>
+
+            <!-- RESULTADOS -->
+            <section id="pagina-resultados"
+                     class="pagina">
+
+                <h2>Resultados</h2>
+
+                <p>
+                    Área para registrar os resultados
+                    das partidas.
+                </p>
+
+            </section>
+
+            <!-- EVENTOS -->
+            <section id="pagina-eventos"
+                     class="pagina">
+
+                <h2>Eventos das partidas</h2>
+
+                <p>
+                    Área para registrar gols,
+                    assistências e cartões.
+                </p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>

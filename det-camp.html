@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,33 +11,116 @@
 <body>
 
     <div class="app">
-        <header> <!--cabeçalho-->
-            <img src="imagens/cf2027.png" alt="copa do feijão">
-            <h1>10ª Copa do Feijão 2027</h1>
+        <header>
+            <img src="imagens/cf2027.png" alt="Imagem do campeonato">
+            <h1 id="nome-campeonato">Carregando campeonato...</h1>
         </header>
-        <main> <!--conteúdo da tela-->
+
+        <main>
             <ul>
-                <li><a href="tab-jogos.html"><img style="width: 50px;" src="imagens/tab-jogos.png" alt="tabela de jogos">Tabela de Jogos</a></li>
-                <li><a href="classificacao.html"><img style="width: 50px;" src="imagens/classificacao.png" alt="classificação">Classificação</a></li>
-                <li><a href="estatisticas.html"><img style="width: 50px;" src="imagens/estatisticas.png" alt="estatísticas">Estatísticas</a></li>
-             </ul> 
+                <li>
+                    <a href="tab-jogos.html" id="link-jogos">
+                        <img style="width: 50px;"
+                             src="imagens/tab-jogos.png"
+                             alt="tabela de jogos">
+                        Tabela de Jogos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="classificacao.html" id="link-classificacao">
+                        <img style="width: 50px;"
+                             src="imagens/classificacao.png"
+                             alt="classificação">
+                        Classificação
+                    </a>
+                </li>
+
+                <li>
+                    <a href="estatisticas.html" id="link-estatisticas">
+                        <img style="width: 50px;"
+                             src="imagens/estatisticas.png"
+                             alt="estatísticas">
+                        Estatísticas
+                    </a>
+                </li>
+            </ul>
         </main>
 
         <nav class="bottom-nav">
-            <!-- Item 1: Página Inicial -->
             <a href="index.html" class="nav-item">
-                <img src="imagens/voltar.png" alt="Início" class="nav-icon">
+                <img src="imagens/voltar.png"
+                     alt="Início"
+                     class="nav-icon">
                 <span>Voltar</span>
             </a>
         </nav>
 
         <footer>
             <p>&copy; <span id="ano"></span> - Desenvolvido por Team XP</p>
-        </footer> 
-
+        </footer>
     </div>
 
     <script src="js/script.js"></script>
+
+    <script>
+        // Identifica o campeonato selecionado
+        const parametros = new URLSearchParams(window.location.search);
+        const campeonatoId = parametros.get("id");
+
+        // Repassa o ID para as outras páginas
+        if (campeonatoId) {
+            document.getElementById("link-jogos").href =
+                "tab-jogos.html?id=" + encodeURIComponent(campeonatoId);
+
+            document.getElementById("link-classificacao").href =
+                "classificacao.html?id=" + encodeURIComponent(campeonatoId);
+
+            document.getElementById("link-estatisticas").href =
+                "estatisticas.html?id=" + encodeURIComponent(campeonatoId);
+        }
+
+        // Consulta os dados reais do campeonato
+        async function carregarDetalhesCampeonato() {
+
+            const titulo = document.getElementById("nome-campeonato");
+
+            if (!campeonatoId) {
+                titulo.textContent = "Campeonato não selecionado";
+                return;
+            }
+
+            try {
+                const resposta = await fetch(
+                    "http://localhost:8080/api/campeonatos/" +
+                    encodeURIComponent(campeonatoId)
+                );
+
+                if (!resposta.ok) {
+                    throw new Error("Erro HTTP: " + resposta.status);
+                }
+
+                const campeonato = await resposta.json();
+
+                titulo.textContent =
+                    campeonato.nome + " " + campeonato.ano;
+
+                document.title =
+                    campeonato.nome + " " + campeonato.ano + " - FutScore";
+
+            } catch (erro) {
+                console.error(
+                    "Erro ao carregar campeonato:",
+                    erro
+                );
+
+                titulo.textContent =
+                    "Não foi possível carregar o campeonato.";
+            }
+        }
+
+        carregarDetalhesCampeonato();
+    </script>
 
 </body>
 </html>

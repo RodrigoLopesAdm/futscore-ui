@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,73 +11,144 @@
 <body>
 
 <div class="app">
-    <header> <!--cabeçalho-->
-        <img src="imagens/cf2027.png" alt="copa do feijão">
-        <h1>10ª Copa do Feijão 2027</h1>
+
+    <header>
+        <img src="imagens/cf2027.png" alt="Imagem do campeonato">
+        <h1 id="nome-campeonato">Carregando campeonato...</h1>
         <h2>Classificação</h2>
     </header>
 
-<main class="classificacao-grupos">
-    <section class="painel-classificacao">
-        <div class="navegacao-grupo">
-            <button id="grupo-anterior" class="btn-grupo" type="button">
-                &#10094;
-            </button>
-            <h3 id="titulo-grupo">Grupo A</h3>
-            <button id="proximo-grupo" class="btn-grupo" type="button">
-                &#10095;
-            </button>
-        </div>
+    <main class="classificacao-grupos">
+        <section class="painel-classificacao">
 
-        <div class="tabela-classificacao">
-            <div class="linha cabecalho">
-                <span>#</span>
-                <span class="equipe">Equipe</span>
-                <span>P</span>
-                <span>J</span>
-                <span>V</span>
-                <span>E</span>
-                <span>D</span>
-                <span>SG</span>
+            <div class="navegacao-grupo">
+                <button id="grupo-anterior"
+                        class="btn-grupo"
+                        type="button">
+                    &#10094;
+                </button>
+
+                <h3 id="titulo-grupo">Carregando grupos...</h3>
+
+                <button id="proximo-grupo"
+                        class="btn-grupo"
+                        type="button">
+                    &#10095;
+                </button>
             </div>
-            <div id="lista-classificacao">
-                <!-- Classificação inserida pelo JavaScript -->
+
+            <div class="tabela-classificacao">
+                <div class="linha cabecalho">
+                    <span>#</span>
+                    <span class="equipe">Equipe</span>
+                    <span>P</span>
+                    <span>J</span>
+                    <span>V</span>
+                    <span>E</span>
+                    <span>D</span>
+                    <span>SG</span>
+                </div>
+
+                <div id="lista-classificacao">
+                    <!-- Classificação inserida pelo JavaScript -->
+                </div>
             </div>
-        </div>
-        <p class="legenda-classificacao">
-            <span></span>
-            Classificados
-        </p>
-    </section>
-</main>
+
+            <p class="legenda-classificacao">
+                <span></span>
+                Classificados
+            </p>
+
+        </section>
+    </main>
+
     <nav class="bottom-nav">
-        <!-- Item 1: Página Inicial -->
+
         <a href="det-camp.html" class="nav-item">
-            <img src="imagens/home.png" alt="Início" class="nav-icon">
+            <img src="imagens/home.png"
+                 alt="Início"
+                 class="nav-icon">
             <span>Página Inicial</span>
         </a>
-        <!-- Item 2: Jogos -->
+
         <a href="tab-jogos.html" class="nav-item">
-            <img src="imagens/tab-jogos.png" alt="Jogos" class="nav-icon">
+            <img src="imagens/tab-jogos.png"
+                 alt="Jogos"
+                 class="nav-icon">
             <span>Jogos</span>
         </a>
-        <!-- Item 3: Classificação -->
+
         <a href="classificacao.html" class="nav-item">
-            <img src="imagens/classificacao.png" alt="Classificação" class="nav-icon">
+            <img src="imagens/classificacao.png"
+                 alt="Classificação"
+                 class="nav-icon">
             <span>Classificação</span>
         </a>
-        <!-- Item 4: Estatísticas -->
+
         <a href="estatisticas.html" class="nav-item">
-            <img src="imagens/estatisticas.png" alt="Estatísticas" class="nav-icon">
+            <img src="imagens/estatisticas.png"
+                 alt="Estatísticas"
+                 class="nav-icon">
             <span>Estatísticas</span>
         </a>
+
     </nav>
+
     <footer>
         <p>&copy; <span id="ano"></span> - Desenvolvido por Team XP</p>
-    </footer> 
+    </footer>
+
 </div>
 
 <script src="js/script.js"></script>
+
+<script>
+    // Recupera o ID do campeonato selecionado
+    const parametros = new URLSearchParams(window.location.search);
+    const campeonatoId = parametros.get("id");
+
+    // Consulta os dados reais do campeonato
+    async function carregarNomeCampeonato() {
+
+        const titulo = document.getElementById("nome-campeonato");
+
+        if (!campeonatoId) {
+            titulo.textContent = "Campeonato não selecionado";
+            return;
+        }
+
+        try {
+            const resposta = await fetch(
+                "http://localhost:8080/api/campeonatos/" +
+                encodeURIComponent(campeonatoId)
+            );
+
+            if (!resposta.ok) {
+                throw new Error("Erro HTTP: " + resposta.status);
+            }
+
+            const campeonato = await resposta.json();
+
+            titulo.textContent =
+                campeonato.nome + " " + campeonato.ano;
+
+            document.title =
+                campeonato.nome + " " + campeonato.ano +
+                " - Classificação - FutScore";
+
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar campeonato:",
+                erro
+            );
+
+            titulo.textContent =
+                "Não foi possível carregar o campeonato.";
+        }
+    }
+
+    carregarNomeCampeonato();
+</script>
 
 </body>
 </html>
