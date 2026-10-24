@@ -437,4 +437,512 @@ body {
     outline-offset: 2px;
 }
 
+/* Botão Editar */
+.btn-editar {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background 0.2s;
+}
 
+/* Efeito ao passar o mouse */
+.btn-editar:hover {
+    background-color: #1d4ed8;
+}
+
+/* =========================================
+   FORMULÁRIO DE EQUIPES
+========================================= */
+
+#form-equipe {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Área dos botões do formulário */
+.acoes-form-equipe {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Botões com a mesma largura */
+.acoes-form-equipe .btn-salvar,
+.acoes-form-equipe .btn-excluir {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Mensagens do formulário */
+#mensagem-equipe {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#mensagem-equipe:empty {
+    display: none;
+}
+
+/* =========================================
+   RESPONSIVIDADE DO FORMULÁRIO
+========================================= */
+
+@media (max-width: 700px) {
+    #form-equipe {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .acoes-form-equipe {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   TABELA DE EQUIPES
+========================================= */
+
+.tabela-equipes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabela-equipes thead {
+    background: var(--azul-escuro);
+    color: #ffffff;
+}
+
+.tabela-equipes th,
+.tabela-equipes td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--borda);
+    font-size: 14px;
+}
+
+.tabela-equipes tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.tabela-equipes tbody tr:hover {
+    background: #eef6ff;
+}
+
+.tabela-equipes tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   CORREÇÃO DOS BOTÕES DE EQUIPES
+========================================= */
+
+#form-equipe .acoes-form-equipe {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#form-equipe .acoes-form-equipe .btn-salvar,
+#form-equipe .acoes-form-equipe .btn-excluir {
+    grid-column: auto;
+    width: 100%;
+    justify-self: stretch;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    #form-equipe .acoes-form-equipe {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Botões compactos do formulário de equipes */
+
+#form-equipe .acoes-form-equipe {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+#form-equipe .acoes-form-equipe .btn-salvar,
+#form-equipe .acoes-form-equipe .btn-excluir {
+    grid-column: auto;
+    width: auto;
+    min-width: 160px;
+    justify-self: auto;
+    margin: 0;
+    padding: 14px 26px;
+    font-size: 15px;
+}
+
+/* Botões do formulário de campeonatos */
+
+#form-campeonato .acoes-form-campeonato {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+#form-campeonato .acoes-form-campeonato .btn-salvar,
+#form-campeonato .acoes-form-campeonato .btn-excluir {
+    width: auto;
+    min-width: 160px;
+    height: 56px;
+    padding: 0 20px;
+    margin: 0;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TABELA DE CAMPEONATOS */
+
+#pagina-campeonatos {
+    width: 100%;
+    min-width: 0;
+}
+
+#tabela-campeonatos {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    margin-top: 15px;
+}
+
+#tabela-campeonatos th,
+#tabela-campeonatos td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* =========================================
+   FORMULÁRIO DE ATLETAS
+========================================= */
+
+#form-atleta {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#form-atleta .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+#form-atleta input,
+#form-atleta select {
+    width: 100%;
+    height: 56px;
+    padding: 12px 18px;
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#form-atleta input:focus,
+#form-atleta select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+#form-atleta .acoes-form-atleta,
+#form-atleta #mensagem-atleta {
+    grid-column: 1 / -1;
+}
+
+#form-atleta .acoes-form-atleta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#form-atleta .acoes-form-atleta button {
+    width: auto;
+    min-width: 160px;
+    min-height: 50px;
+    margin: 0;
+    padding: 12px 20px;
+}
+
+@media (max-width: 700px) {
+    #form-atleta {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* PADRONIZAÇÃO DOS BOTÕES DO FORMULÁRIO DE ATLETAS */
+
+#form-atleta .acoes-form-atleta button {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =========================================
+   FORMULÁRIO DE PARTIDAS
+========================================= */
+
+#form-partida {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+#form-partida .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#form-partida .campo-formulario label {
+    font-weight: 600;
+}
+
+#form-partida .campo-formulario input,
+#form-partida .campo-formulario select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#form-partida .campo-formulario input:focus,
+#form-partida .campo-formulario select:focus {
+    outline: none;
+    border-color: #198754;
+}
+
+.acoes-form-partida {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#btn-salvar-partida {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #198754;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#btn-salvar-partida:hover {
+    background-color: #146c43;
+}
+
+#mensagem-partida {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#mensagem-partida:empty {
+    display: none;
+}
+
+/* =========================================
+   BOTÕES DE AÇÕES - PARTIDAS
+========================================= */
+
+.btn-editar-partida,
+.btn-excluir-partida {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 3px;
+    transition: background-color 0.2s ease;
+}
+
+/* Botão Editar */
+.btn-editar-partida {
+    background-color: #0d6efd;
+}
+
+.btn-editar-partida:hover {
+    background-color: #0a58ca;
+}
+
+/* Botão Excluir */
+.btn-excluir-partida {
+    background-color: #dc3545;
+}
+
+.btn-excluir-partida:hover {
+    background-color: #b02a37;
+}
+
+/* =========================================
+   BOTÃO CANCELAR EDIÇÃO - PARTIDAS
+========================================= */
+
+#btn-cancelar-edicao-partida {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #6c757d;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#btn-cancelar-edicao-partida:hover {
+    background-color: #565e64;
+}
+/* =========================================
+   BOTÃO REGISTRAR RESULTADO - PARTIDAS
+========================================= */
+
+.btn-resultado-partida {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #fd7e14;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-resultado-partida:hover {
+    background-color: #ca6510;
+}
+
+/* =========================================
+   FORMULÁRIO DE RESULTADOS - PARTIDAS
+========================================= */
+
+#card-resultado-partida {
+    margin-top: 20px;
+}
+
+#identificacao-partida-resultado {
+    margin: 12px 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#form-resultado-partida {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+#form-resultado-partida .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#form-resultado-partida .campo-formulario label {
+    font-weight: 600;
+}
+
+#form-resultado-partida input,
+#form-resultado-partida select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#form-resultado-partida input:focus,
+#form-resultado-partida select:focus {
+    outline: none;
+    border-color: #198754;
+}
+
+/* Botão Salvar resultado */
+
+#btn-salvar-resultado {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #198754;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#btn-salvar-resultado:hover {
+    background-color: #146c43;
+}
+
+/* Botão Cancelar */
+
+#btn-cancelar-resultado {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #6c757d;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#btn-cancelar-resultado:hover {
+    background-color: #565e64;
+}
+
+/* Mensagens de retorno */
+
+#mensagem-resultado {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#mensagem-resultado:empty {
+    display: none;
+}

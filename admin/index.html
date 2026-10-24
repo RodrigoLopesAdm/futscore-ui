@@ -32,23 +32,19 @@
                     🏠 Início
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="campeonatos">
+                <a href="campeonatos.html" class="menu-item">
                     🏆 Campeonatos
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="equipes">
+                <a href="equipes.html" class="menu-item">
                     🛡️ Equipes
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="atletas">
+                <a href="atletas.html" class="menu-item">
                     👕 Atletas
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="partidas">
+                <a href="partidas.html" class="menu-item">
                     📅 Partidas
                 </a>
 
@@ -136,155 +132,6 @@
                     </div>
 
                 </div>
-
-            </section>
-
-            
-        <!-- CAMPEONATOS -->
-        <section id="pagina-campeonatos" class="pagina">
-
-            <h2>Gerenciamento de Campeonatos</h2>
-
-            <p class="descricao">
-                Consulte os campeonatos cadastrados no FutScore.
-            </p>
-
-            
-            <!-- FORMULÁRIO DE CADASTRO DE CAMPEONATO -->
-            <div class="card" style="margin-bottom: 25px; text-align: left;">
-
-                <h3>Cadastrar novo campeonato</h3>
-
-                <form id="form-campeonato">
-
-                    <div class="campo-formulario">
-                        <label for="nome-campeonato">
-                            Nome do campeonato
-                        </label>
-
-                        <input
-                            type="text"
-                            id="nome-campeonato"
-                            name="nome"
-                            placeholder="Ex.: 11ª Copa do Feijão"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="ano-campeonato">
-                            Ano
-                        </label>
-
-                        <input
-                            type="number"
-                            id="ano-campeonato"
-                            name="ano"
-                            min="2000"
-                            max="2100"
-                            placeholder="Ex.: 2028"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="inicio-campeonato">
-                            Data de início
-                        </label>
-
-                        <input
-                            type="date"
-                            id="inicio-campeonato"
-                            name="dataInicio"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="fim-campeonato">
-                            Data de término
-                        </label>
-
-                        <input
-                            type="date"
-                            id="fim-campeonato"
-                            name="dataFim"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="regulamento-campeonato">
-                            Regulamento
-                        </label>
-
-                        <textarea
-                            id="regulamento-campeonato"
-                            name="regulamento"
-                            rows="4"
-                            placeholder="Descreva o regulamento do campeonato"
-                        ></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-salvar">
-                        Salvar campeonato
-                    </button>
-
-                    <p id="mensagem-campeonato"
-                    role="status"
-                    aria-live="polite"></p>
-
-                </form>
-
-            </div>
-
-            <div class="card">
-
-                <h3>Campeonatos cadastrados</h3>
-
-                <div style="overflow-x: auto; margin-top: 20px;">
-
-                    <table id="tabela-campeonatos"
-                        style="width: 100%; border-collapse: collapse;">
-
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Ano</th>
-                                <th>Data de início</th>
-                                <th>Data de término</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="lista-campeonatos-admin">
-
-                            <tr>
-                                <td colspan="6">
-                                    Aguardando carregamento...
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-            <!-- EQUIPES -->
-            <section id="pagina-equipes"
-                     class="pagina">
-
-                <h2>Equipes</h2>
-
-                <p>
-                    Área para cadastrar e gerenciar equipes.
-                </p>
 
             </section>
 

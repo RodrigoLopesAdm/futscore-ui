@@ -1,6 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-
+    // Guarda o ID do campeonato que está sendo editado
+    // null significa que o formulário está no modo de cadastro
+    let campeonatoEmEdicaoId = null;
     // Seleciona os itens do menu
     const itensMenu = document.querySelectorAll(".menu-item");
 
@@ -41,23 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adiciona os eventos de clique
     itensMenu.forEach(item => {
+        item.addEventListener("click", evento => {
 
-        item.addEventListener("click", (evento) => {
+            // Links para outros arquivos HTML devem navegar normalmente
+            if (item.getAttribute("href") !== "#") {
+                return;
+            }
 
-            // Evita o comportamento padrão do link
+            // Mantém a navegação antiga para seções da mesma página
             evento.preventDefault();
+            abrirPagina(item.dataset.pagina);
 
-            // Identifica qual página foi selecionada
-            const nomePagina = item.dataset.pagina;
-
-            // Abre a página correspondente
-            abrirPagina(nomePagina);
         });
     });
 
     console.log("Painel administrativo FutScore carregado!");
 
-    
     // =========================================
     // CARREGAR CAMPEONATOS DA API
     // =========================================
@@ -120,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     campeonato.dataInicio,
                     campeonato.dataFim
                 ];
-
                 
                 valores.forEach(valor => {
 
@@ -145,6 +145,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 colunaAcoes.style.borderBottom =
                     "1px solid #e2e8f0";
 
+                // Botão Editar
+                const botaoEditar = document.createElement("button");
+
+                botaoEditar.type = "button";
+                botaoEditar.textContent = "Editar";
+                botaoEditar.classList.add("btn-editar");
+                // Identifica o campeonato selecionado para edição                
+                botaoEditar.addEventListener("click", () => {
+                    // Ativa o modo de edição
+                    campeonatoEmEdicaoId = campeonato.id;
+                    const botaoCancelar = document.getElementById(
+                        "btn-cancelar-edicao-campeonato"
+                    );
+
+                    if (botaoCancelar) {
+                        botaoCancelar.style.display = "inline-block";
+                    }
+                    // Altera o texto do botão para o modo de edição
+                    document.querySelector("#form-campeonato .btn-salvar").textContent =
+                        "Atualizar campeonato";
+                    // Preenche o formulário com os dados do campeonato
+                    document.getElementById("nome-campeonato").value =
+                        campeonato.nome ?? "";
+
+                    document.getElementById("ano-campeonato").value =
+                        campeonato.ano ?? "";
+
+                    document.getElementById("inicio-campeonato").value =
+                        campeonato.dataInicio ?? "";
+
+                    document.getElementById("fim-campeonato").value =
+                        campeonato.dataFim ?? "";
+
+                    document.getElementById("regulamento-campeonato").value =
+                        campeonato.regulamento ?? "";
+
+                    // Leva o usuário até o formulário
+                    document.getElementById("form-campeonato")
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                });
+
                 // Botão Excluir
                 const botaoExcluir =
                     document.createElement("button");
@@ -155,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 botaoExcluir.classList.add("btn-excluir");
 
-                
                 botaoExcluir.addEventListener("click", async () => {
 
                     const confirmou = confirm(
@@ -209,12 +253,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
                     } finally {
+                            botaoSalvar.disabled = false;
 
-                        botaoExcluir.disabled = false;
-                        botaoExcluir.textContent = "Excluir";
-                    }
+                            botaoSalvar.textContent =
+                                campeonatoEmEdicaoId !== null
+                                    ? "Atualizar campeonato"
+                                    : "Salvar campeonato";
+                        }
 
                     });
+
+                    // Coloca o botão Editar na coluna de ações
+                    colunaAcoes.appendChild(botaoEditar);
 
                     // Coloca o botão Excluir na coluna de ações
                     colunaAcoes.appendChild(botaoExcluir);
@@ -244,161 +294,5 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }
     }
-
-    // Executa a consulta ao abrir o painel
-    carregarCampeonatos();
-
     
-    // =========================================
-    // CADASTRAR NOVO CAMPEONATO
-    // =========================================
-
-    const formularioCampeonato =
-        document.getElementById("form-campeonato");
-
-    const mensagemCampeonato =
-        document.getElementById("mensagem-campeonato");
-
-    if (formularioCampeonato && mensagemCampeonato) {
-
-        formularioCampeonato.addEventListener(
-            "submit",
-            async (evento) => {
-
-                evento.preventDefault();
-
-                const botaoSalvar =
-                    formularioCampeonato.querySelector(
-                        'button[type="submit"]'
-                    );
-
-                const nome = document.getElementById(
-                    "nome-campeonato"
-                ).value.trim();
-
-                const ano = Number(
-                    document.getElementById(
-                        "ano-campeonato"
-                    ).value
-                );
-
-                const dataInicio =
-                    document.getElementById(
-                        "inicio-campeonato"
-                    ).value;
-
-                const dataFim =
-                    document.getElementById(
-                        "fim-campeonato"
-                    ).value;
-
-                const regulamento =
-                    document.getElementById(
-                        "regulamento-campeonato"
-                    ).value.trim();
-
-                // Validações antes de enviar à API
-                if (nome.length < 3 || nome.length > 100) {
-                    mensagemCampeonato.textContent =
-                        "O nome deve ter entre 3 e 100 caracteres.";
-                    mensagemCampeonato.style.color = "#dc2626";
-                    return;
-                }
-
-                if (!Number.isInteger(ano) || ano < 2000 || ano > 2100) {
-                    mensagemCampeonato.textContent =
-                        "Informe um ano válido entre 2000 e 2100.";
-                    mensagemCampeonato.style.color = "#dc2626";
-                    return;
-                }
-
-                if (!dataInicio || !dataFim) {
-                    mensagemCampeonato.textContent =
-                        "Informe as datas de início e término.";
-                    mensagemCampeonato.style.color = "#dc2626";
-                    return;
-                }
-
-                if (dataFim < dataInicio) {
-                    mensagemCampeonato.textContent =
-                        "A data de término não pode ser anterior à data de início.";
-                    mensagemCampeonato.style.color = "#dc2626";
-                    return;
-                }
-
-                const novoCampeonato = {
-                    nome: nome,
-                    ano: ano,
-                    regulamento: regulamento,
-                    dataInicio: dataInicio,
-                    dataFim: dataFim
-                };
-
-                botaoSalvar.disabled = true;
-                botaoSalvar.textContent = "Salvando...";
-
-                mensagemCampeonato.textContent =
-                    "Cadastrando campeonato...";
-
-                mensagemCampeonato.style.color = "#64748b";
-
-                try {
-
-                    const resposta = await fetch(
-                        "http://localhost:8080/api/campeonatos",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(novoCampeonato)
-                        }
-                    );
-
-                    if (!resposta.ok) {
-                        throw new Error(
-                            "Erro HTTP: " + resposta.status
-                        );
-                    }
-
-                    const campeonatoSalvo =
-                        await resposta.json();
-
-                    console.log(
-                        "Campeonato cadastrado:",
-                        campeonatoSalvo
-                    );
-
-                    mensagemCampeonato.textContent =
-                        "Campeonato cadastrado com sucesso!";
-
-                    mensagemCampeonato.style.color = "#16a34a";
-
-                    formularioCampeonato.reset();
-
-                    // Atualiza a tabela automaticamente
-                    await carregarCampeonatos();
-
-                } catch (erro) {
-
-                    console.error(
-                        "Erro ao cadastrar campeonato:",
-                        erro
-                    );
-
-                    mensagemCampeonato.textContent =
-                        "Não foi possível cadastrar o campeonato. " +
-                        "Verifique os dados e a conexão com a API.";
-
-                    mensagemCampeonato.style.color = "#dc2626";
-
-                } finally {
-
-                    botaoSalvar.disabled = false;
-                    botaoSalvar.textContent = "Salvar campeonato";
-                }
-            }
-        );
-    }
-
 });

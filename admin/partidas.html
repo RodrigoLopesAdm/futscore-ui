@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FutScore | Gerenciamento de Partidas</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <h2>⚽ FutScore</h2>
+                <p>Painel Administrativo</p>
+            </div>
+
+            <nav class="menu">
+
+                <a href="index.html" class="menu-item">
+                    🏠 Início
+                </a>
+
+                <a href="campeonatos.html" class="menu-item">
+                    🏆 Campeonatos
+                </a>
+
+                <a href="equipes.html" class="menu-item">
+                    🛡️ Equipes
+                </a>
+
+                <a href="atletas.html" class="menu-item">
+                    👕 Atletas
+                </a>
+
+                <a href="partidas.html" class="menu-item ativo">
+                    📅 Partidas
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="resultados">
+                    ⚽ Resultados
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="eventos">
+                    📊 Eventos
+                </a>
+
+            </nav>
+
+            <div class="sidebar-rodape">
+                <p>FutScore © 2026</p>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="conteudo">
+
+            <header class="topo">
+
+                <div>
+                    <h1>Painel Administrativo</h1>
+                    <p>Gerenciamento de partidas</p>
+                </div>
+
+                <div class="usuario">
+                    <span>👤 Administrador (teste)</span>
+                </div>
+
+            </header>
+
+            <!-- PARTIDAS -->
+            <section id="pagina-partidas" class="pagina ativa">
+
+                <h2>Gerenciamento de Partidas</h2>
+
+                <p>
+                    Cadastre, consulte e gerencie as partidas
+                    dos campeonatos registrados no FutScore.
+                </p>
+
+                <div class="card" style="margin-top: 30px; text-align: left;">
+
+                    <h3>Partidas cadastradas</h3>
+
+                    <div style="overflow-x: auto; margin-top: 20px;">
+
+                        <table id="tabela-partidas" class="tabela-equipes">
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Campeonato</th>
+                                    <th>Mandante</th>
+                                    <th>Visitante</th>
+                                    <th>Placar</th>
+                                    <th>Data</th>
+                                    <th>Horário</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="lista-partidas-admin">
+                                <tr>
+                                    <td colspan="9">
+                                        Aguardando carregamento das partidas...
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="card" style="margin-top: 35px; text-align: left;">
+
+                    <h3>Cadastrar nova partida</h3>
+
+                    <form id="form-partida">
+
+                        <!-- CAMPEONATO -->
+                        <div class="campo-formulario">
+                            <label for="campeonato-partida">
+                                Campeonato
+                            </label>
+
+                            <select id="campeonato-partida" name="campeonato" required>
+                                <option value="">Selecione um campeonato</option>
+                            </select>
+                        </div>
+
+                        <!-- EQUIPE MANDANTE -->
+                        <div class="campo-formulario">
+                            <label for="mandante-partida">
+                                Equipe mandante
+                            </label>
+
+                            <select id="mandante-partida" name="mandante" required>
+                                <option value="">Selecione a equipe mandante</option>
+                            </select>
+                        </div>
+
+                        <!-- EQUIPE VISITANTE -->
+                        <div class="campo-formulario">
+                            <label for="visitante-partida">
+                                Equipe visitante
+                            </label>
+
+                            <select id="visitante-partida" name="visitante" required>
+                                <option value="">Selecione a equipe visitante</option>
+                            </select>
+                        </div>
+
+                        <!-- DATA DA PARTIDA -->
+                        <div class="campo-formulario">
+                            <label for="data-partida">
+                                Data da partida
+                            </label>
+
+                            <input
+                                type="date"
+                                id="data-partida"
+                                name="data"
+                                required
+                            >
+                        </div>
+
+                        <!-- HORÁRIO DA PARTIDA -->
+                        <div class="campo-formulario">
+                            <label for="hora-partida">
+                                Horário da partida
+                            </label>
+
+                            <input
+                                type="time"
+                                id="hora-partida"
+                                name="hora"
+                                required
+                            >
+                        </div>
+
+                        <!-- RODADA -->
+                        <div class="campo-formulario">
+                            <label for="rodada-partida">
+                                Rodada
+                            </label>
+
+                            <input
+                                type="number"
+                                id="rodada-partida"
+                                name="rodada"
+                                min="1"
+                                step="1"
+                                placeholder="Ex.: 1"
+                                required
+                            >
+                        </div>
+
+                        <!-- FASE DA COMPETIÇÃO -->
+                        <div class="campo-formulario">
+                            <label for="fase-partida">
+                                Fase da competição
+                            </label>
+
+                            <select
+                                id="fase-partida"
+                                name="fase"
+                                required
+                            >
+                                <option value="">Selecione a fase</option>
+                                <option value="GRUPOS">Fase de Grupos</option>
+                                <option value="QUARTAS">Quartas de Final</option>
+                                <option value="SEMIFINAL">Semifinal</option>
+                                <option value="FINAL">Final</option>
+                            </select>
+                        </div>
+
+                        <!-- GRUPO DA PARTIDA -->
+                        <div class="campo-formulario" id="campo-grupo-partida">
+
+                            <label for="grupo-partida">
+                                Grupo da partida
+                            </label>
+
+                            <select id="grupo-partida" name="grupo">
+                                <option value="">Selecione um grupo</option>
+                            </select>
+
+                        </div>
+
+                        <!-- AÇÕES DO FORMULÁRIO -->
+                        <div class="acoes-form-partida">
+                            <button
+                                type="submit"
+                                class="btn-salvar"
+                                id="btn-salvar-partida"
+                            >
+                                Salvar partida
+                            </button>
+
+                            <button
+                                type="button"
+                                id="btn-cancelar-edicao-partida"
+                                style="display: none;"
+                            >
+                                Cancelar edição
+                            </button>
+
+                        </div>
+
+                        <!-- MENSAGENS DO FORMULÁRIO -->
+                        <p
+                            id="mensagem-partida"
+                            role="status"
+                            aria-live="polite"
+                        ></p>
+
+                    </form>
+
+                    <!-- =========================================
+                        REGISTRO DE RESULTADOS DAS PARTIDAS
+                    ========================================= -->
+
+                    <div class="card" id="card-resultado-partida" style="display: none;">
+
+                        <h3>Registrar resultado da partida</h3>
+
+                        <p id="identificacao-partida-resultado"></p>
+
+                        <form id="form-resultado-partida">
+
+                            <div class="campo-formulario">
+                                <label for="placar-mandante">
+                                    Gols da equipe mandante
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="placar-mandante"
+                                    min="0"
+                                    step="1"
+                                    required
+                                >
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="placar-visitante">
+                                    Gols da equipe visitante
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="placar-visitante"
+                                    min="0"
+                                    step="1"
+                                    required
+                                >
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="status-resultado">
+                                    Status da partida
+                                </label>
+
+                                <select id="status-resultado" required>
+                                    <option value="">Selecione o status</option>
+                                    <option value="NAO_INICIADA">Não iniciada</option>
+                                    <option value="EM_ANDAMENTO">Em andamento</option>
+                                    <option value="FINALIZADA">Finalizada</option>
+                                </select>
+                            </div>
+
+                            <div class="acoes-form-partida">
+
+                                <button type="submit" id="btn-salvar-resultado">
+                                    Salvar resultado
+                                </button>
+
+                                <button type="button" id="btn-cancelar-resultado">
+                                    Cancelar
+                                </button>
+
+                            </div>
+
+                            <p id="mensagem-resultado" role="status" aria-live="polite"></p>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="partidas.js"></script>
+
+</body>
+</html>

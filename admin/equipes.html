@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FutScore | Gerenciamento de Equipes</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <h2>⚽ FutScore</h2>
+                <p>Painel Administrativo</p>
+            </div>
+
+            <nav class="menu">
+
+                <a href="index.html" class="menu-item">
+                    🏠 Início
+                </a>
+
+                <a href="campeonatos.html" class="menu-item">
+                    🏆 Campeonatos
+                </a>
+
+                <a href="equipes.html" class="menu-item ativo">
+                    🛡️ Equipes
+                </a>
+
+                <a href="atletas.html" class="menu-item">
+                    👕 Atletas
+                </a>
+
+                <a href="partidas.html" class="menu-item">
+                    📅 Partidas
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="resultados">
+                    ⚽ Resultados
+                </a>
+
+                <a href="#" class="menu-item"
+                   data-pagina="eventos">
+                    📊 Eventos
+                </a>
+
+            </nav>
+
+            <div class="sidebar-rodape">
+                <p>FutScore © 2026</p>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="conteudo">
+
+            <header class="topo">
+
+                <div>
+                    <h1>Painel Administrativo</h1>
+                    <p>Gerenciamento de equipes</p>
+                </div>
+
+                <div class="usuario">
+                    <span>👤 Administrador (teste)</span>
+                </div>
+
+            </header>
+
+            <!-- EQUIPES -->            
+            <section id="pagina-equipes" class="pagina ativa">
+
+                <h2>Gerenciamento de Equipes</h2>
+
+                <p class="descricao">
+                    Cadastre, consulte, edite e exclua as equipes
+                    participantes dos campeonatos.
+                </p>
+
+                <h3>Equipes cadastradas</h3>
+
+                <table class="tabela-equipes">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Bairro</th>
+                            <th>Técnico</th>
+                            <th>Contato</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lista-equipes-admin">
+                        <tr>
+                            <td colspan="6">
+                                Aguardando carregamento das equipes...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                                
+                <!-- FORMULÁRIO DE CADASTRO DE EQUIPES -->
+
+                <h3 style="margin-top: 35px;">Cadastrar nova equipe</h3>
+
+                <form id="form-equipe">
+
+                    <div class="campo-formulario">
+                        <label for="nome-equipe">Nome da equipe</label>
+                        <input
+                            type="text"
+                            id="nome-equipe"
+                            placeholder="Ex.: Real Piçarra"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="bairro-equipe">Bairro ou localidade</label>
+                        <input
+                            type="text"
+                            id="bairro-equipe"
+                            placeholder="Ex.: Centro"
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="tecnico-equipe">Nome do técnico</label>
+                        <input
+                            type="text"
+                            id="tecnico-equipe"
+                            placeholder="Ex.: José Silva"
+                        >
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="contato-equipe">Contato</label>
+                        <input
+                            type="tel"
+                            id="contato-equipe"
+                            placeholder="Ex.: (89) 99999-9999"
+                        >
+                    </div>
+                    
+                    <div class="acoes-form-equipe">
+
+                        <button type="submit" class="btn-salvar">
+                            Salvar equipe
+                        </button>
+
+                        <button
+                            type="button"
+                            id="btn-cancelar-edicao-equipe"
+                            class="btn-excluir"
+                            style="display: none;">
+                            Cancelar edição
+                        </button>
+
+                    </div>
+
+                    <p id="mensagem-equipe"></p>
+
+                </form>
+
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+    <script src="equipes.js"></script>
+
+</body>
+</html>
