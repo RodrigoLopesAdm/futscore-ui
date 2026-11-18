@@ -43,136 +43,6 @@ if (botaoAvaliar) {
     });
 }
 
-// RODADAS DA COPA DO FEIJÃO
-const rodadas = [
-    // 1ª RODADA
-    {
-        nome: "1ª Rodada",
-        jogos: [
-            ["Villareal", "2 x 1", "Caldeirão"],
-            ["SAJA", "1 x 1", "Real Piçarra"],
-            ["Força Jovem", "3 x 0", "Estação"],
-            ["Sitio Velho", "1 x 2", "Flamenguinho"],
-            ["Baixa Verde", "2 x 0", "Barcelona"],
-            ["Nacional", "1 x 1", "Capriza"]
-        ]
-    },
-    // 2ª RODADA
-    {
-        nome: "2ª Rodada",
-        jogos: [
-            ["Villareal", "1 x 0", "Real Piçarra"],
-            ["Caldeirão", "2 x 2", "SAJA"],
-            ["Força Jovem", "2 x 1", "Flamenguinho"],
-            ["Estação", "0 x 0", "Sitio Velho"],
-            ["Baixa Verde", "1 x 2", "Capriza"],
-            ["Barcelona", "3 x 1", "Nacional"]
-        ]
-    },
-    // 3ª RODADA
-    {
-        nome: "3ª Rodada",
-        jogos: [
-            ["Villareal", "2 x 2", "SAJA"],
-            ["Real Piçarra", "1 x 0", "Caldeirão"],
-            ["Força Jovem", "1 x 1", "Sitio Velho"],
-            ["Flamenguinho", "2 x 0", "Estação"],
-            ["Baixa Verde", "2 x 1", "Nacional"],
-            ["Capriza", "1 x 1", "Barcelona"]
-        ]
-    },
-    // QUARTAS DE FINAL
-    {
-        nome: "Quartas de Final",
-        jogos: [
-            ["Villareal", "2 x 0", "Barcelona"],
-            ["Força Jovem", "1 x 2", "SAJA"],
-            ["Baixa Verde", "3 x 1", "Real Piçarra"],
-            ["Flamenguinho", "2 x 1", "Capriza"]
-        ]
-    },
-    // SEMIFINAL
-    {
-        nome: "Semifinal",
-        jogos: [
-            ["Villareal", "2 x 1", "SAJA"],
-            ["Baixa Verde", "1 x 0", "Flamenguinho"]
-        ]
-    },
-    // FINAL
-    {
-        nome: "Final",
-        jogos: [
-            ["Villareal", "2 x 1", "Baixa Verde"]
-        ]
-    }
-];
-
-// ELEMENTOS DA PÁGINA DE JOGOS
-const tituloRodada =
-    document.getElementById("titulo-rodada");
-const listaJogos =
-    document.getElementById("lista-jogos");
-const botaoAnterior =
-    document.getElementById("rodada-anterior");
-const botaoProximo =
-    document.getElementById("proxima-rodada");
-let rodadaAtual = 0;
-// SÓ EXECUTA NA PÁGINA DE JOGOS
-if (
-    tituloRodada &&
-    listaJogos &&
-    botaoAnterior &&
-    botaoProximo
-) {
-    function mostrarRodada() {
-        tituloRodada.textContent =
-            rodadas[rodadaAtual].nome;
-        listaJogos.innerHTML = "";
-        rodadas[rodadaAtual].jogos.forEach((jogo) => {
-            const divJogo =
-                document.createElement("div");
-            divJogo.classList.add("jogo");
-            divJogo.innerHTML = `
-                <span class="time">
-                    ${jogo[0]}
-                </span>
-                <span class="placar">
-                    ${jogo[1]}
-                </span>
-                <span class="time">
-                    ${jogo[2]}
-                </span>
-            `;
-            listaJogos.appendChild(divJogo);
-        });
-        // Desativa seta esquerda na 1ª rodada
-        botaoAnterior.disabled =
-            rodadaAtual === 0;
-        // Desativa seta direita na última rodada
-        botaoProximo.disabled =
-            rodadaAtual === rodadas.length - 1;
-    }
-
-    // PRÓXIMA RODADA
-    botaoProximo.addEventListener("click", () => {
-        if (rodadaAtual < rodadas.length - 1) {
-            rodadaAtual++;
-            mostrarRodada();
-        }
-    });
-
-    // RODADA ANTERIOR
-    botaoAnterior.addEventListener("click", () => {
-        if (rodadaAtual > 0) {
-            rodadaAtual--;
-            mostrarRodada();
-        }
-    });
-    // Exibe a primeira rodada
-    mostrarRodada();
-}
-
 // CLASSIFICAÇÃO DOS GRUPOS
 
  // CLASSIFICAÇÃO DOS GRUPOS - INTEGRAÇÃO COM A API
@@ -717,144 +587,115 @@ carregarCampeonatos();
 
 
 // INTEGRAÇÃO COM A API - TABELA DE JOGOS
-
 async function carregarJogosDaAPI() {
-
     const titulo = document.getElementById("titulo-rodada");
     const lista = document.getElementById("lista-jogos");
     const anterior = document.getElementById("rodada-anterior");
     const proximo = document.getElementById("proxima-rodada");
+    if (!titulo || !lista || !anterior || !proximo) return;
 
-    // Executa somente na tela de jogos
-    if (!titulo || !lista || !anterior || !proximo) {
-        return;
-    }
+    const fases = {
+        OITAVAS: { nome: "Oitavas de Final", ordem: 1 },
+        QUARTAS: { nome: "Quartas de Final", ordem: 2 },
+        SEMIFINAL: { nome: "Semifinal", ordem: 3 },
+        FINAL: { nome: "Final", ordem: 4 }
+    };
+    anterior.disabled = proximo.disabled = true;
+    titulo.textContent = "Tabela de Jogos";
+    lista.textContent = "Carregando jogos...";
 
     try {
-        const resposta = await fetch(
-            "http://localhost:8080/api/partidas"
-        );
-
-        if (!resposta.ok) {
-            throw new Error("Erro HTTP: " + resposta.status);
-        }
-
+        const resposta = await fetch("http://localhost:8080/api/partidas");
+        if (!resposta.ok) throw new Error("Erro HTTP: " + resposta.status);
         const partidas = await resposta.json();
-
-        // Campeonato selecionado na página
-        const campeonatoId = Number(
-            new URLSearchParams(window.location.search).get("id") || 1
-        );
-
-        const partidasCampeonato = partidas.filter(
-            partida => partida.campeonato?.id === campeonatoId
-        );
-
-        // Agrupa partidas por rodada
-        const numerosRodadas = [
-            ...new Set(partidasCampeonato.map(p => p.rodada))
-        ].sort((a, b) => a - b);
-
-        let indiceRodada = 0;
-
-        function mostrarJogosDaRodada() {
-
+        const campeonatoId = new URLSearchParams(window.location.search).get("id");
+        if (!campeonatoId) {
+            lista.textContent = "Campeonato não selecionado.";
+            return;
+        }
+        const grupos = new Map();
+        for (const partida of partidas) {
+            if (String(partida.campeonato?.id) !== campeonatoId) continue;
+            const fase = String(partida.fase ?? "").trim().toUpperCase();
+            const eliminatoria = Object.prototype.hasOwnProperty.call(fases, fase) ? fases[fase] : null;
+            const rodada = Number(partida.rodada);
+            const temRodada = partida.rodada != null && Number.isInteger(rodada) && rodada > 0;
+            const chave = eliminatoria ? fase : temRodada ? `RODADA-${rodada}` : "SEM_FASE";
+            if (!grupos.has(chave)) {
+                grupos.set(chave, {
+                    nome: eliminatoria ? eliminatoria.nome : temRodada ? `${rodada}ª Rodada` : "Partidas sem fase definida",
+                    ordem: eliminatoria ? eliminatoria.ordem : temRodada ? 0 : 5,
+                    rodada: temRodada ? rodada : 0,
+                    jogos: []
+                });
+            }
+            grupos.get(chave).jogos.push(partida);
+        }
+        const etapas = [...grupos.values()].sort((a, b) => a.ordem - b.ordem || a.rodada - b.rodada);
+        let indice = 0;
+        function mostrarJogos() {
             lista.innerHTML = "";
-
-            if (numerosRodadas.length === 0) {
+            if (!etapas.length) {
                 titulo.textContent = "Tabela de Jogos";
                 lista.textContent = "Nenhuma partida cadastrada.";
-                anterior.disabled = true;
-                proximo.disabled = true;
                 return;
             }
-
-            const numero = numerosRodadas[indiceRodada];
-
-            titulo.textContent = numero + "ª Rodada";
-
-            const jogos = partidasCampeonato.filter(
-                partida => partida.rodada === numero
-            );
-
-            jogos.forEach(partida => {
-
+            const etapa = etapas[indice];
+            titulo.textContent = etapa.nome;
+            for (const partida of etapa.jogos) {
                 const div = document.createElement("div");
-                div.classList.add("jogo");
-
+                div.className = "jogo";
                 const mandante = document.createElement("span");
-                mandante.classList.add("time");
+                mandante.className = "time";
                 mandante.textContent = partida.mandante.nome;
-
                 const placar = document.createElement("span");
-                placar.classList.add("placar");
+                placar.className = "placar";
+                const finalizada = partida.status === "FINALIZADA";
+                placar.textContent = finalizada ? `${partida.placarMandante} x ${partida.placarVisitante}` : "×";
+                const visitante = document.createElement("span");
+                visitante.className = "time";
+                visitante.textContent = partida.visitante.nome;
+                // Exibe os pênaltis dentro do placar principal
+                if (
+                    finalizada &&
+                    partida.penaltisMandante != null &&
+                    partida.penaltisVisitante != null
+                ) {
+                    placar.classList.add("placar-com-penaltis");
 
-                if (partida.status === "FINALIZADA") {
-                    placar.textContent =
-                        partida.placarMandante +
-                        " x " +
-                        partida.placarVisitante;
-                } else {
-                    placar.textContent = "×";
+                    const placarPenaltis = document.createElement("span");
+
+                    placarPenaltis.className = "placar-penaltis";
+
+                    placarPenaltis.textContent =
+                        `[${partida.penaltisMandante} x ${partida.penaltisVisitante}]`;
+
+                    placar.appendChild(placarPenaltis);
                 }
 
-                const visitante = document.createElement("span");
-                visitante.classList.add("time");
-                visitante.textContent = partida.visitante.nome;
-
-                div.appendChild(mandante);
-                div.appendChild(placar);
-                div.appendChild(visitante);
-
+                div.append(mandante, placar, visitante);
                 lista.appendChild(div);
-            });
-
-            
-            const botaoVoltar = document.getElementById("rodada-anterior");
-            const botaoAvancar = document.getElementById("proxima-rodada");
-
-            botaoVoltar.disabled = indiceRodada === 0;
-            botaoAvancar.disabled =
-                indiceRodada === numerosRodadas.length - 1;
-
+            }
+            anterior.disabled = indice === 0;
+            proximo.disabled = indice === etapas.length - 1;
         }
-
-        // Substitui os botões antigos por cópias sem eventos
-        const novoAnterior = anterior.cloneNode(true);
-        const novoProximo = proximo.cloneNode(true);
-
-        anterior.replaceWith(novoAnterior);
-        proximo.replaceWith(novoProximo);
-
-        novoAnterior.addEventListener("click", () => {
-            if (indiceRodada > 0) {
-                indiceRodada--;
-                mostrarJogosDaRodada();
-            }
+        anterior.addEventListener("click", () => {
+            if (indice > 0) { indice--; mostrarJogos(); }
         });
-
-        novoProximo.addEventListener("click", () => {
-            if (indiceRodada < numerosRodadas.length - 1) {
-                indiceRodada++;
-                mostrarJogosDaRodada();
-            }
+        proximo.addEventListener("click", () => {
+            if (indice < etapas.length - 1) { indice++; mostrarJogos(); }
         });
-
-        mostrarJogosDaRodada();
-
+        mostrarJogos();
     } catch (erro) {
         console.error("Erro ao carregar jogos da API:", erro);
         titulo.textContent = "Tabela de Jogos";
         lista.textContent = "Não foi possível carregar os jogos.";
-        anterior.disabled = true;
-        proximo.disabled = true;
+        anterior.disabled = proximo.disabled = true;
     }
 }
-
 carregarJogosDaAPI();
 
-
- // NAVEGAÇÃO INFERIOR - PRESERVAR O CAMPEONATO SELECIONADO
+// NAVEGAÇÃO INFERIOR - PRESERVAR O CAMPEONATO SELECIONADO
 
 function configurarNavegacaoCampeonato() {
 

@@ -71,7 +71,6 @@ main {
     -webkit-overflow-scrolling: touch;
 }
 
-
 /*BOTÕES*/
 button {
     background-color: blue;
@@ -483,4 +482,20 @@ footer {
 /* Medalha do líder */
 .linha-estatistica:first-child .posicao-estatistica {
     font-size: 17px;
+}
+/* PLACAR COM PÊNALTIS */
+
+.placar-com-penaltis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.placar-penaltis {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.2;
+    color: inherit;
 }

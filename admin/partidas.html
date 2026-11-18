@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -35,8 +34,16 @@
                     🏆 Campeonatos
                 </a>
 
+                <a href="grupos.html" class="menu-item">
+                    🗂️ Grupos
+                </a>
+
                 <a href="equipes.html" class="menu-item">
                     🛡️ Equipes
+                </a>
+
+                <a href="inscricoes.html" class="menu-item">
+                    📋 Inscrições
                 </a>
 
                 <a href="atletas.html" class="menu-item">
@@ -47,13 +54,7 @@
                     📅 Partidas
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="resultados">
-                    ⚽ Resultados
-                </a>
-
-                <a href="#" class="menu-item"
-                   data-pagina="eventos">
+                <a href="eventos.html" class="menu-item">
                     📊 Eventos
                 </a>
 
@@ -194,23 +195,6 @@
                             >
                         </div>
 
-                        <!-- RODADA -->
-                        <div class="campo-formulario">
-                            <label for="rodada-partida">
-                                Rodada
-                            </label>
-
-                            <input
-                                type="number"
-                                id="rodada-partida"
-                                name="rodada"
-                                min="1"
-                                step="1"
-                                placeholder="Ex.: 1"
-                                required
-                            >
-                        </div>
-
                         <!-- FASE DA COMPETIÇÃO -->
                         <div class="campo-formulario">
                             <label for="fase-partida">
@@ -228,6 +212,22 @@
                                 <option value="SEMIFINAL">Semifinal</option>
                                 <option value="FINAL">Final</option>
                             </select>
+                        </div>
+
+                        <!-- RODADA -->
+                        <div class="campo-formulario" id="campo-rodada-partida">
+                            <label for="rodada-partida">
+                                Rodada
+                            </label>
+
+                            <input
+                                type="number"
+                                id="rodada-partida"
+                                name="rodada"
+                                min="1"
+                                step="1"
+                                placeholder="Ex.: 1"
+                            >
                         </div>
 
                         <!-- GRUPO DA PARTIDA -->
@@ -323,6 +323,21 @@
                                     <option value="EM_ANDAMENTO">Em andamento</option>
                                     <option value="FINALIZADA">Finalizada</option>
                                 </select>
+                            </div>
+
+                            <!-- DISPUTA DE PÊNALTIS -->
+                            <div id="campo-penaltis-resultado" style="display: none;">
+                                <h4>Disputa de pênaltis</h4>
+
+                                <div class="campo-formulario">
+                                    <label for="penaltis-mandante">Pênaltis da equipe mandante</label>
+                                    <input type="number" id="penaltis-mandante" min="0" step="1" disabled>
+                                </div>
+
+                                <div class="campo-formulario">
+                                    <label for="penaltis-visitante">Pênaltis da equipe visitante</label>
+                                    <input type="number" id="penaltis-visitante" min="0" step="1" disabled>
+                                </div>
                             </div>
 
                             <div class="acoes-form-partida">

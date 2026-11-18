@@ -35,8 +35,16 @@
                     🏆 Campeonatos
                 </a>
 
+                <a href="grupos.html" class="menu-item">
+                    🗂️ Grupos
+                </a>
+
                 <a href="equipes.html" class="menu-item">
                     🛡️ Equipes
+                </a>
+
+                <a href="inscricoes.html" class="menu-item">
+                    📋 Inscrições
                 </a>
 
                 <a href="atletas.html" class="menu-item">
@@ -47,13 +55,7 @@
                     📅 Partidas
                 </a>
 
-                <a href="#" class="menu-item"
-                   data-pagina="resultados">
-                    ⚽ Resultados
-                </a>
-
-                <a href="#" class="menu-item"
-                   data-pagina="eventos">
+                <a href="eventos.html" class="menu-item">
                     📊 Eventos
                 </a>
 
@@ -82,64 +84,64 @@
 
                 <h3>Cadastrar novo campeonato</h3>
 
-                <form id="form-campeonato">
+                <form id="form-campeonato" class="formulario-campeonato">
+                    <div class="grade-dados-campeonato">
+                        <div class="campo-formulario">
+                            <label for="nome-campeonato">
+                                Nome do campeonato
+                            </label>
 
-                    <div class="campo-formulario">
-                        <label for="nome-campeonato">
-                            Nome do campeonato
-                        </label>
+                            <input
+                                type="text"
+                                id="nome-campeonato"
+                                name="nome"
+                                placeholder="Ex.: 11ª Copa do Feijão"
+                                required
+                            >
+                        </div>
 
-                        <input
-                            type="text"
-                            id="nome-campeonato"
-                            name="nome"
-                            placeholder="Ex.: 11ª Copa do Feijão"
-                            required
-                        >
+                        <div class="campo-formulario">
+                            <label for="ano-campeonato">
+                                Ano
+                            </label>
+
+                            <input
+                                type="number"
+                                id="ano-campeonato"
+                                name="ano"
+                                min="2000"
+                                max="2100"
+                                placeholder="Ex.: 2028"
+                                required
+                            >
+                        </div>
+
+                        <div class="campo-formulario">
+                            <label for="inicio-campeonato">
+                                Data de início
+                            </label>
+
+                            <input
+                                type="date"
+                                id="inicio-campeonato"
+                                name="dataInicio"
+                                required
+                            >
+                        </div>
+
+                        <div class="campo-formulario">
+                            <label for="fim-campeonato">
+                                Data de término
+                            </label>
+
+                            <input
+                                type="date"
+                                id="fim-campeonato"
+                                name="dataFim"
+                                required
+                            >
+                        </div>
                     </div>
-
-                    <div class="campo-formulario">
-                        <label for="ano-campeonato">
-                            Ano
-                        </label>
-
-                        <input
-                            type="number"
-                            id="ano-campeonato"
-                            name="ano"
-                            min="2000"
-                            max="2100"
-                            placeholder="Ex.: 2028"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="inicio-campeonato">
-                            Data de início
-                        </label>
-
-                        <input
-                            type="date"
-                            id="inicio-campeonato"
-                            name="dataInicio"
-                            required
-                        >
-                    </div>
-
-                    <div class="campo-formulario">
-                        <label for="fim-campeonato">
-                            Data de término
-                        </label>
-
-                        <input
-                            type="date"
-                            id="fim-campeonato"
-                            name="dataFim"
-                            required
-                        >
-                    </div>
-
                     <div class="campo-formulario">
                         <label for="regulamento-campeonato">
                             Regulamento
@@ -151,6 +153,113 @@
                             rows="4"
                             placeholder="Descreva o regulamento do campeonato"
                         ></textarea>
+                    </div>
+
+                    <!-- CONFIGURAÇÕES DE PONTUAÇÃO -->
+                    <div class="configuracoes-campeonato">
+
+                        <h3>⚙️ Regras de pontuação</h3>
+
+                        <p>
+                            Defina a pontuação utilizada neste campeonato.
+                            Os valores podem variar conforme o regulamento.
+                        </p>
+
+                        <div class="grade-pontuacao">
+
+                            <div class="campo-formulario">
+                                <label for="pontos-vitoria">Pontos por vitória</label>
+                                <input type="number" id="pontos-vitoria"
+                                    name="pontosVitoria" min="0" value="3" required>
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="pontos-empate">Pontos por empate</label>
+                                <input type="number" id="pontos-empate"
+                                    name="pontosEmpate" min="0" value="1" required>
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="pontos-derrota">Pontos por derrota</label>
+                                <input type="number" id="pontos-derrota"
+                                    name="pontosDerrota" min="0" value="0" required>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                    <!-- CONFIGURAÇÕES DO FORMATO DE DISPUTA -->
+                    <div class="configuracoes-campeonato">
+
+                        <h3>🏆 Formato de disputa</h3>
+
+                        <p>
+                            Configure a organização dos grupos, os classificados
+                            e a primeira fase eliminatória do campeonato.
+                        </p>
+
+                        <div class="grade-dados-campeonato">
+
+                            <div class="campo-formulario">
+                                <label for="tipo-disputa">
+                                    Tipo de disputa
+                                </label>
+                                <select id="tipo-disputa" name="tipoDisputa" required>
+                                    <option value="GRUPOS_ELIMINATORIAS">
+                                        Fase de grupos + eliminatórias
+                                    </option>
+                                    <option value="PONTOS_CORRIDOS">
+                                        Pontos corridos
+                                    </option>
+                                    <option value="ELIMINATORIAS">
+                                        Eliminatórias diretas
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="quantidade-grupos">
+                                    Quantidade de grupos
+                                </label>
+                                <input type="number" id="quantidade-grupos"
+                                    name="quantidadeGrupos" min="1"
+                                    placeholder="Ex.: 3">
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="classificados-por-grupo">
+                                    Classificados por grupo
+                                </label>
+                                <input type="number" id="classificados-por-grupo"
+                                    name="classificadosPorGrupo" min="1"
+                                    placeholder="Ex.: 2">
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="vagas-adicionais">
+                                    Vagas adicionais
+                                </label>
+                                <input type="number" id="vagas-adicionais"
+                                    name="vagasAdicionais" min="0" value="0">
+                            </div>
+
+                            <div class="campo-formulario">
+                                <label for="primeira-fase-eliminatoria">
+                                    Primeira fase eliminatória
+                                </label>
+                                <select id="primeira-fase-eliminatoria"
+                                        name="primeiraFaseEliminatoria">
+                                    <option value="">Sem fase eliminatória</option>
+                                    <option value="OITAVAS">Oitavas de final</option>
+                                    <option value="QUARTAS">Quartas de final</option>
+                                    <option value="SEMIFINAIS">Semifinais</option>
+                                    <option value="FINAL">Final</option>
+                                </select>
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="acoes-form-campeonato">

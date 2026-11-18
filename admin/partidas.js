@@ -264,11 +264,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "campo-grupo-partida"
     );
 
+    const campoRodada = document.getElementById("campo-rodada-partida");
+    const inputRodada = document.getElementById("rodada-partida");
+
     function atualizarVisibilidadeGrupo() {
 
         if (!selectFase || !campoGrupo || !selectGrupo) return;
 
         const faseDeGrupos = selectFase.value === "GRUPOS";
+
+        const possuiRodada = faseDeGrupos ||
+            selectFase.value === "PONTOS_CORRIDOS";
+
+        campoRodada.style.display = possuiRodada ? "" : "none";
+        inputRodada.required = possuiRodada;
+        inputRodada.disabled = !possuiRodada;
+
+        if (!possuiRodada) {
+            inputRodada.value = "";
+        }
+
+        selectGrupo.disabled = !faseDeGrupos;
 
         // Exibe ou oculta o campo Grupo
         campoGrupo.style.display = faseDeGrupos ? "" : "none";
@@ -455,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Seleciona o grupo da partida
                     document.getElementById("grupo-partida").value =
-                        partida.grupo?.id ?? "";
+                        selectFase.value === "GRUPOS" ? (partida.grupo?.id ?? "") : "";
 
                     // Altera o título e o botão do formulário
                     const tituloFormulario = document.querySelector(
@@ -591,6 +607,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Guarda o ID da partida selecionada no formulário
                     cardResultado.dataset.partidaId = partida.id;
+                    cardResultado.dataset.fase = partida.fase ?? "";
+                    inputPenaltisMandante.value = partida.penaltisMandante ?? "";
+                    inputPenaltisVisitante.value = partida.penaltisVisitante ?? "";
 
                     // Identifica as equipes da partida
                     identificacaoPartida.textContent =
@@ -603,6 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Seleciona o status atual
                     statusResultado.value = partida.status ?? "";
+                    atualizarVisibilidadePenaltis();
 
                     // Limpa mensagens anteriores
                     mensagemResultado.textContent = "";
@@ -739,11 +759,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const hora = document.getElementById("hora-partida").value;
 
-            const rodada = Number(
-                document.getElementById("rodada-partida").value
-            );
-
             const fase = document.getElementById("fase-partida").value;
+
+            const rodada = ["GRUPOS", "PONTOS_CORRIDOS"].includes(fase)
+                ? Number(inputRodada.value)
+                : null;
 
             const grupoId = fase === "GRUPOS"
                 ? Number(document.getElementById("grupo-partida").value)
@@ -875,6 +895,35 @@ document.addEventListener("DOMContentLoaded", () => {
         "form-resultado-partida"
     );
 
+    const campoPenaltis = document.getElementById("campo-penaltis-resultado");
+    const inputPenaltisMandante = document.getElementById("penaltis-mandante");
+    const inputPenaltisVisitante = document.getElementById("penaltis-visitante");
+
+    function atualizarVisibilidadePenaltis() {
+        const fase = cardResultadoPartida.dataset.fase;
+        const mandante = document.getElementById("placar-mandante").value;
+        const visitante = document.getElementById("placar-visitante").value;
+        const status = document.getElementById("status-resultado").value;
+
+        const exibir = ["OITAVAS", "QUARTAS", "SEMIFINAL", "FINAL"].includes(fase)
+            && status === "FINALIZADA"
+            && mandante !== "" && visitante !== ""
+            && Number(mandante) === Number(visitante);
+
+        campoPenaltis.style.display = exibir ? "" : "none";
+
+        for (const campo of [inputPenaltisMandante, inputPenaltisVisitante]) {
+            campo.disabled = !exibir;
+            campo.required = exibir;
+            if (!exibir) campo.value = "";
+        }
+    }
+
+    for (const id of ["placar-mandante", "placar-visitante", "status-resultado"]) {
+        document.getElementById(id).addEventListener("input", atualizarVisibilidadePenaltis);
+        document.getElementById(id).addEventListener("change", atualizarVisibilidadePenaltis);
+    }
+
     botaoCancelarResultado.addEventListener("click", () => {
 
         // Limpa os campos do formulário
@@ -882,6 +931,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Remove a identificação da partida selecionada
         delete cardResultadoPartida.dataset.partidaId;
+        delete cardResultadoPartida.dataset.fase;
+        atualizarVisibilidadePenaltis();
 
         // Limpa o nome das equipes
         document.getElementById(
@@ -950,11 +1001,51 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Captura os placares dos pênaltis
+        let penaltisMandante = null;
+        let penaltisVisitante = null;
+
+        if (!inputPenaltisMandante.disabled) {
+
+            if (
+                inputPenaltisMandante.value.trim() === "" ||
+                inputPenaltisVisitante.value.trim() === ""
+            ) {
+                mensagem.textContent =
+                    "Informe os dois placares dos pênaltis.";
+                return;
+            }
+
+            penaltisMandante = Number(inputPenaltisMandante.value);
+            penaltisVisitante = Number(inputPenaltisVisitante.value);
+
+            // Valida os placares dos pênaltis
+            if (
+                !Number.isInteger(penaltisMandante) ||
+                !Number.isInteger(penaltisVisitante) ||
+                penaltisMandante < 0 ||
+                penaltisVisitante < 0
+            ) {
+                mensagem.textContent =
+                    "Informe placares válidos para os pênaltis.";
+                return;
+            }
+
+            // A disputa de pênaltis deve ter um vencedor
+            if (penaltisMandante === penaltisVisitante) {
+                mensagem.textContent =
+                    "A disputa de pênaltis não pode terminar empatada.";
+                return;
+            }
+        }
+
         // Organiza os dados conforme o ResultadoPartidaDTO
         const resultado = {
             placarMandante: placarMandante,
             placarVisitante: placarVisitante,
-            status: status
+            status: status,
+            penaltisMandante: penaltisMandante,
+            penaltisVisitante: penaltisVisitante
         };
 
         // =========================================
@@ -995,6 +1086,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Remove a partida selecionada
             delete cardResultadoPartida.dataset.partidaId;
+        delete cardResultadoPartida.dataset.fase;
+        atualizarVisibilidadePenaltis();
 
             // Fecha o formulário
             cardResultadoPartida.style.display = "none";

@@ -1,4 +1,50 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {    
+    // Controla os campos conforme o formato de disputa
+    const campoTipoDisputa =
+        document.getElementById("tipo-disputa");
+
+    const camposGrupos = [
+        "quantidade-grupos",
+        "classificados-por-grupo",
+        "vagas-adicionais"
+    ];
+
+    const campoPrimeiraFase =
+        document.getElementById("primeira-fase-eliminatoria");
+
+    function atualizarCamposDisputa() {
+
+        const tipo = campoTipoDisputa.value;
+
+        const possuiGrupos =
+            tipo === "GRUPOS_ELIMINATORIAS";
+
+        const possuiEliminatorias =
+            tipo === "GRUPOS_ELIMINATORIAS" ||
+            tipo === "ELIMINATORIAS";
+
+        camposGrupos.forEach(id => {
+
+            const campo = document.getElementById(id);
+
+            campo.closest(".campo-formulario").style.display =
+                possuiGrupos ? "" : "none";
+
+            campo.disabled = !possuiGrupos;
+        });
+
+        campoPrimeiraFase.closest(".campo-formulario").style.display =
+            possuiEliminatorias ? "" : "none";
+
+        campoPrimeiraFase.disabled = !possuiEliminatorias;
+    }
+
+    campoTipoDisputa.addEventListener(
+        "change",
+        atualizarCamposDisputa
+    );
+
+    atualizarCamposDisputa();
 
     // Guarda o ID do campeonato em edição.
     // null significa que estamos cadastrando um novo campeonato.
@@ -125,6 +171,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     document.getElementById("regulamento-campeonato").value =
                         campeonato.regulamento ?? "";
+                    
+                    // Preenche as regras de pontuação do campeonato
+                    document.getElementById("pontos-vitoria").value =
+                        campeonato.pontosVitoria ?? 3;
+
+                    document.getElementById("pontos-empate").value =
+                        campeonato.pontosEmpate ?? 1;
+
+                    document.getElementById("pontos-derrota").value =
+                        campeonato.pontosDerrota ?? 0;
+                    
+                    // Preenche o formato de disputa do campeonato
+                    document.getElementById("tipo-disputa").value =
+                        campeonato.tipoDisputa ?? "GRUPOS_ELIMINATORIAS";
+
+                    document.getElementById("quantidade-grupos").value =
+                        campeonato.quantidadeGrupos ?? "";
+
+                    document.getElementById("classificados-por-grupo").value =
+                        campeonato.classificadosPorGrupo ?? "";
+
+                    document.getElementById("vagas-adicionais").value =
+                        campeonato.vagasAdicionais ?? 0;
+
+                    document.getElementById("primeira-fase-eliminatoria").value =
+                        campeonato.primeiraFaseEliminatoria ?? "";
+                    
+                    // Atualiza a visibilidade dos campos no modo de edição
+                    atualizarCamposDisputa();
 
                     // Leva o usuário até o formulário
                     document.getElementById("form-campeonato")
@@ -218,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 });
 
-
         } catch (erro) {
 
             console.error(
@@ -252,6 +326,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Limpa os campos do formulário
             formularioCampeonato.reset();
+            
+            // Restaura os campos conforme o tipo de disputa padrão
+            atualizarCamposDisputa();
 
             // Restaura o botão de salvar
             const botaoSalvar = formularioCampeonato.querySelector(
@@ -317,6 +394,44 @@ document.addEventListener("DOMContentLoaded", () => {
                         "regulamento-campeonato"
                     ).value.trim();
 
+                // Regras de pontuação do campeonato
+                const pontosVitoria = Number(
+                    document.getElementById("pontos-vitoria").value
+                );
+
+                const pontosEmpate = Number(
+                    document.getElementById("pontos-empate").value
+                );
+
+                const pontosDerrota = Number(
+                    document.getElementById("pontos-derrota").value
+                );
+                
+                // Configurações do formato de disputa
+                const tipoDisputa =
+                    document.getElementById("tipo-disputa").value;
+
+                const quantidadeGruposValor =
+                    document.getElementById("quantidade-grupos").value;
+
+                const classificadosPorGrupoValor =
+                    document.getElementById("classificados-por-grupo").value;
+
+                const vagasAdicionaisValor =
+                    document.getElementById("vagas-adicionais").value;
+
+                const primeiraFaseEliminatoria =
+                    document.getElementById("primeira-fase-eliminatoria").value;
+
+                const quantidadeGrupos = quantidadeGruposValor === ""
+                    ? null : Number(quantidadeGruposValor);
+
+                const classificadosPorGrupo = classificadosPorGrupoValor === ""
+                    ? null : Number(classificadosPorGrupoValor);
+
+                const vagasAdicionais = vagasAdicionaisValor === ""
+                    ? 0 : Number(vagasAdicionaisValor);
+
                 // Validações antes de enviar à API
                 if (nome.length < 3 || nome.length > 100) {
                     mensagemCampeonato.textContent =
@@ -345,13 +460,104 @@ document.addEventListener("DOMContentLoaded", () => {
                     mensagemCampeonato.style.color = "#dc2626";
                     return;
                 }
+                
+                // Validação do formato de disputa
+                if (tipoDisputa === "GRUPOS_ELIMINATORIAS") {
+
+                    if (
+                        !Number.isInteger(quantidadeGrupos) ||
+                        quantidadeGrupos < 1 ||
+                        !Number.isInteger(classificadosPorGrupo) ||
+                        classificadosPorGrupo < 1 ||
+                        !Number.isInteger(vagasAdicionais) ||
+                        vagasAdicionais < 0
+                    ) {
+                        mensagemCampeonato.textContent =
+                            "Informe quantidades válidas de grupos, classificados e vagas adicionais.";
+                        mensagemCampeonato.style.color = "#dc2626";
+                        return;
+                    }
+
+                    const totalClassificados =
+                        quantidadeGrupos * classificadosPorGrupo +
+                        vagasAdicionais;
+
+                    const equipesPorFase = {
+                        OITAVAS: 16,
+                        QUARTAS: 8,
+                        SEMIFINAIS: 4,
+                        FINAL: 2
+                    };
+
+                    const equipesNecessarias =
+                        equipesPorFase[primeiraFaseEliminatoria];
+
+                    if (!equipesNecessarias) {
+                        mensagemCampeonato.textContent =
+                            "Selecione a primeira fase eliminatória.";
+                        mensagemCampeonato.style.color = "#dc2626";
+                        return;
+                    }
+
+                    if (totalClassificados !== equipesNecessarias) {
+                        mensagemCampeonato.textContent =
+                            `A fase selecionada exige ${equipesNecessarias} equipes, ` +
+                            `mas a configuração possui ${totalClassificados} classificados.`;
+                        mensagemCampeonato.style.color = "#dc2626";
+                        return;
+                    }
+                }
+                
+                // Validação das eliminatórias diretas
+                if (tipoDisputa === "ELIMINATORIAS") {
+
+                    const fasesPermitidas = [
+                        "OITAVAS",
+                        "QUARTAS",
+                        "SEMIFINAIS",
+                        "FINAL"
+                    ];
+
+                    if (!fasesPermitidas.includes(primeiraFaseEliminatoria)) {
+                        mensagemCampeonato.textContent =
+                            "Selecione a primeira fase das eliminatórias.";
+                        mensagemCampeonato.style.color = "#dc2626";
+                        return;
+                    }
+                }
+                    
+                const possuiGrupos =
+                    tipoDisputa === "GRUPOS_ELIMINATORIAS";
+
+                const possuiEliminatorias =
+                    tipoDisputa === "GRUPOS_ELIMINATORIAS" ||
+                    tipoDisputa === "ELIMINATORIAS";
 
                 const novoCampeonato = {
                     nome: nome,
                     ano: ano,
                     regulamento: regulamento,
                     dataInicio: dataInicio,
-                    dataFim: dataFim
+                    dataFim: dataFim,
+
+                    pontosVitoria: pontosVitoria,
+                    pontosEmpate: pontosEmpate,
+                    pontosDerrota: pontosDerrota,
+
+                    tipoDisputa: tipoDisputa,
+
+                    quantidadeGrupos: possuiGrupos
+                        ? quantidadeGrupos : null,
+
+                    classificadosPorGrupo: possuiGrupos
+                        ? classificadosPorGrupo : null,
+
+                    vagasAdicionais: possuiGrupos
+                        ? vagasAdicionais : 0,
+
+                    primeiraFaseEliminatoria: possuiEliminatorias
+                        ? (primeiraFaseEliminatoria || null)
+                        : null
                 };
 
                 botaoSalvar.disabled = true;

@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FutScore | Eventos das Partidas</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <h2>⚽ FutScore</h2>
+                <p>Painel Administrativo</p>
+            </div>
+
+            <nav class="menu">
+
+                <a href="index.html" class="menu-item">
+                    🏠 Início
+                </a>
+
+                <a href="campeonatos.html" class="menu-item">
+                    🏆 Campeonatos
+                </a>
+
+                <a href="grupos.html" class="menu-item">
+                    🗂️ Grupos
+                </a>
+
+                <a href="equipes.html" class="menu-item">
+                    🛡️ Equipes
+                </a>
+
+                <a href="inscricoes.html" class="menu-item">
+                    📋 Inscrições
+                </a>
+
+                <a href="atletas.html" class="menu-item">
+                    👕 Atletas
+                </a>
+
+                <a href="partidas.html" class="menu-item">
+                    📅 Partidas
+                </a>
+
+                <a href="eventos.html" class="menu-item ativo">
+                    📊 Eventos
+                </a>
+
+            </nav>
+
+            <div class="sidebar-rodape">
+                <p>FutScore © 2026</p>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="conteudo">
+
+            <header class="topo">
+
+                <div>
+                    <h1>Eventos das Partidas</h1>
+                    <p>Gerenciamento de gols, assistências e cartões</p>
+                </div>
+
+                <div class="usuario">
+                    <span>👤 Administrador (teste)</span>
+                </div>
+
+            </header>
+
+            <section class="pagina ativa">
+
+                <h2>Gerenciar eventos</h2>
+
+                <p class="descricao">
+                    Registre e acompanhe os acontecimentos
+                    das partidas dos campeonatos.
+                </p>
+
+                <!-- SELEÇÃO DA PARTIDA -->
+                <div class="form-container">
+
+                    <h3>Selecionar partida</h3>
+
+                    <div class="form-grupo">
+
+                        <label for="partida-evento">
+                            Partida:
+                        </label>
+
+                        <select id="partida-evento" required>
+                            <option value="">
+                                Selecione uma partida
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                
+                    <!-- FORMULÁRIO DE EVENTOS -->
+                    <div class="form-container">
+
+                        <h3>Registrar evento</h3>
+
+                        <form id="form-evento">
+
+                            <div class="form-grupo">
+                                <label for="tipo-evento">Tipo de evento:</label>
+
+                                <select id="tipo-evento" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="GOL">Gol</option>
+                                    <option value="ASSISTENCIA">Assistência</option>
+                                    <option value="CARTAO_AMARELO">Cartão amarelo</option>
+                                    <option value="CARTAO_VERMELHO">Cartão vermelho</option>
+                                </select>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="atleta-evento">Atleta:</label>
+
+                                <select id="atleta-evento" required>
+                                    <option value="">Selecione um atleta</option>
+                                </select>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="minuto-evento">Minuto:</label>
+
+                                <input
+                                    type="number"
+                                    id="minuto-evento"
+                                    min="0"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn-salvar">
+                                Registrar evento
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                
+                <!-- LISTAGEM DE EVENTOS -->
+                <div class="form-container">
+
+                    <h3>Eventos registrados</h3>
+
+                    <table class="tabela-admin">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Atleta</th>
+                                <th>Equipe</th>
+                                <th>Minuto</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="lista-eventos">
+                            <tr>
+                                <td colspan="6">
+                                    Selecione uma partida para visualizar os eventos.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+            </section>
+
+        </main>
+
+    </div>
+    <script src="eventos.js"></script>
+</body>
+</html>

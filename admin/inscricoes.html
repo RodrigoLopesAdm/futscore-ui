@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FutScore | Inscrições</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                <h2>⚽ FutScore</h2>
+                <p>Painel Administrativo</p>
+            </div>
+
+            <nav class="menu">
+
+                <a href="index.html" class="menu-item">
+                    🏠 Início
+                </a>
+
+                <a href="campeonatos.html" class="menu-item">
+                    🏆 Campeonatos
+                </a>
+
+                <a href="grupos.html" class="menu-item">
+                    🗂️ Grupos
+                </a>
+
+                <a href="equipes.html" class="menu-item">
+                    🛡️ Equipes
+                </a>
+
+                <a href="inscricoes.html" class="menu-item ativo">
+                    📋 Inscrições
+                </a>
+
+                <a href="atletas.html" class="menu-item">
+                    👕 Atletas
+                </a>
+
+                <a href="partidas.html" class="menu-item">
+                    📅 Partidas
+                </a>
+
+                <a href="eventos.html" class="menu-item">
+                    📊 Eventos
+                </a>
+
+            </nav>
+
+            <div class="sidebar-rodape">
+                <p>FutScore © 2026</p>
+            </div>
+
+        </aside>
+
+        <main class="conteudo">
+
+            <header class="topo">
+
+                <div>
+                    <h1>Painel Administrativo</h1>
+                    <p>Inscrições de equipes</p>
+                </div>
+
+                <div class="usuario">
+                    <span>👤 Administrador (teste)</span>
+                </div>
+
+            </header>
+
+            <section class="pagina ativa">
+
+                <h2>Inscrições de Equipes</h2>
+
+                <p class="descricao">
+                    Inscreva equipes nos campeonatos
+                    e organize sua distribuição nos grupos.
+                </p>
+
+                <h3>Nova inscrição</h3>
+
+                <form id="form-inscricao">
+
+                    <div class="campo-formulario">
+                        <label for="campeonato-inscricao">
+                            Campeonato
+                        </label>
+
+                        <select id="campeonato-inscricao" required>
+                            <option value="">
+                                Selecione um campeonato
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="equipe-inscricao">
+                            Equipe
+                        </label>
+
+                        <select id="equipe-inscricao" required>
+                            <option value="">
+                                Selecione uma equipe
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="grupo-inscricao">
+                            Grupo (opcional)
+                        </label>
+
+                        <select id="grupo-inscricao">
+                            <option value="">
+                                Sem grupo definido
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-salvar">
+                        Inscrever equipe
+                    </button>
+
+                    <p id="mensagem-inscricao"></p>
+
+                </form>
+
+                <h3 style="margin-top: 35px;">
+                    Equipes inscritas
+                </h3>
+
+                <table class="tabela-equipes">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Campeonato</th>
+                            <th>Equipe</th>
+                            <th>Grupo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lista-inscricoes-admin">
+                        <tr>
+                            <td colspan="5">
+                                Aguardando carregamento das inscrições...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                
+                <!-- VISUALIZAÇÃO DAS EQUIPES POR GRUPOS -->
+                <div id="secao-distribuicao-grupos"
+                    style="margin-top: 35px;">
+
+                    <h3>Distribuição das equipes por grupos</h3>
+
+                    <p class="descricao">
+                        Visualize a organização das equipes nos grupos
+                        do campeonato selecionado.
+                    </p>
+
+                    <div id="distribuicao-grupos" class="grade-grupos">
+
+                        <p>
+                            Selecione um campeonato para visualizar
+                            a distribuição das equipes.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="inscricoes.js"></script>
+
+</body>
+</html>
